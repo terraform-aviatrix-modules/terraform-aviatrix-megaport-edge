@@ -4,8 +4,10 @@ resource "aviatrix_edge_gateway_selfmanaged" "default" {
   ztp_file_type          = "cloud-init"
   ztp_file_download_path = "./"
 
-  local_as_number = var.local_as_number
-  prepend_as_path = var.prepend_as_path
+  local_as_number               = var.local_as_number
+  prepend_as_path               = var.prepend_as_path
+  enable_learned_cidrs_approval = var.enable_learned_cidrs_approval
+  approved_learned_cidrs        = var.approved_learned_cidrs
 
   interfaces {
     name       = "eth0"

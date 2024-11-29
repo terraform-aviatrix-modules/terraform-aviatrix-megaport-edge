@@ -22,6 +22,19 @@ variable "prepend_as_path" {
 variable "local_as_number" {
   description = "BGP AS Number to assign to Edge VM."
   type        = number
+  default     = null
+}
+
+variable "enable_learned_cidrs_approval" {
+  description = "Switch to enable learned CIDR approval."
+  type        = bool
+  default     = null
+}
+
+variable "approved_learned_cidrs" {
+  description = "Set of approved learned CIDRs. Valid only when enable_learned_cidrs_approval is set to true. Example: [\"10.1.0.0/16\", \"10.2.0.0/16\"]."
+  type        = list(string)
+  default     = null
 }
 
 variable "lan_ip" {
