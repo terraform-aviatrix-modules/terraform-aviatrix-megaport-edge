@@ -3,15 +3,16 @@ resource "aviatrix_edge_gateway_selfmanaged" "default" {
   site_id                = var.site_id
   ztp_file_type          = "cloud-init"
   ztp_file_download_path = "./"
-  local_as_number        = var.local_as_number
-  prepend_as_path        = var.prepend_as_path
+
+  local_as_number = var.local_as_number
+  prepend_as_path = var.prepend_as_path
 
   interfaces {
-    name          = "eth0"
-    type          = "WAN"
-    ip_address    = "10.230.5.32/24"
-    gateway_ip    = "10.230.5.100"
-    wan_public_ip = "64.71.24.221"
+    name       = "eth0"
+    type       = "WAN"
+    ip_address = var.wan1_ip
+    gateway_ip = var.wan1_gateway_ip
+    #wan_public_ip = "64.71.24.221"
   }
 
   interfaces {
@@ -24,6 +25,17 @@ resource "aviatrix_edge_gateway_selfmanaged" "default" {
     name        = "eth2"
     type        = "MANAGEMENT"
     enable_dhcp = true
+  }
+
+  dynamic "interfaces" {
+    for_each = local.additional_wan_interfaces
+
+    content {
+      name       = interfaces.key
+      type       = "WAN"
+      ip_address = interfaces.value.ip
+      gateway_ip = interfaces.value.gateway
+    }
   }
 
   lifecycle {
@@ -50,11 +62,15 @@ data "megaport_location" "loc" {
   name = var.megaport_location
 }
 
+data "megaport_location" "internet_loc" {
+  name = coalesce(var.megaport_location_mgmt_internet, var.megaport_location)
+}
+
 data "megaport_partner" "internet" {
   connect_type = "TRANSIT"
   company_name = "Networks"
   product_name = "Megaport Internet"
-  location_id  = data.megaport_location.loc.id
+  location_id  = data.megaport_location.internet_loc.id
 }
 
 resource "megaport_vxc" "mgmt_internet" {
@@ -74,15 +90,6 @@ resource "megaport_vxc" "mgmt_internet" {
   b_end_partner_config = {
     partner = "transit"
   }
-}
-
-resource "megaport_port" "mgmt" {
-  product_name           = "Management Port"
-  port_speed             = 1000
-  location_id            = data.megaport_location.loc.id
-  contract_term_months   = 1
-  marketplace_visibility = false
-  cost_centre            = "Megaport Single Port Example"
 }
 
 resource "megaport_mve" "default" {

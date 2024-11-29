@@ -45,4 +45,11 @@ locals {
   management_prefix = megaport_vxc.mgmt_internet.csp_connections[0].customer_ip4_address
 
   controller_ip = local.write_files_orig.controller_ip
+
+  additional_wan_interfaces = {
+    for wan, wan_config in {
+      eth3 = { ip = var.wan2_ip, gateway = var.wan2_gateway_ip }
+      eth4 = { ip = var.wan3_ip, gateway = var.wan3_gateway_ip }
+    } : wan => wan_config if wan_config.ip != ""
+  }
 }
