@@ -1,32 +1,27 @@
-resource "aviatrix_edge_gateway_selfmanaged" "default" {
+resource "aviatrix_edge_equinix" "default" {
+  account_name = var.account
+
   gw_name                = var.name
   site_id                = var.site_id
-  ztp_file_type          = "cloud-init"
   ztp_file_download_path = "./"
 
-  local_as_number               = var.local_as_number
-  prepend_as_path               = var.prepend_as_path
-  enable_learned_cidrs_approval = var.enable_learned_cidrs_approval
-  approved_learned_cidrs        = var.approved_learned_cidrs
+  interfaces {
+    name = "eth2"
+    type = "MANAGEMENT"
+  }
 
   interfaces {
-    name       = "eth0"
-    type       = "WAN"
-    ip_address = var.wan1_ip
-    gateway_ip = var.wan1_gateway_ip
-    #wan_public_ip = "64.71.24.221"
+    name          = "eth0"
+    type          = "WAN"
+    ip_address    = var.wan1_ip
+    gateway_ip    = var.wan1_gateway_ip
+    wan_public_ip = var.wan1_public_ip
   }
 
   interfaces {
     name       = "eth1"
     type       = "LAN"
     ip_address = var.lan_ip
-  }
-
-  interfaces {
-    name        = "eth2"
-    type        = "MANAGEMENT"
-    enable_dhcp = true
   }
 
   dynamic "interfaces" {
@@ -40,17 +35,20 @@ resource "aviatrix_edge_gateway_selfmanaged" "default" {
     }
   }
 
+
   lifecycle {
     ignore_changes = [
       management_egress_ip_prefix_list,
+      interfaces
     ]
   }
 }
 
-data "local_file" "cloud_init_content" {
-  filename = format("./%s-%s-cloud-init.txt", aviatrix_edge_gateway_selfmanaged.default.gw_name, aviatrix_edge_gateway_selfmanaged.default.site_id)
 
-  depends_on = [aviatrix_edge_gateway_selfmanaged.default]
+data "local_file" "cloud_init_content" {
+  filename = format("./%s-%s-cloud-init.txt", aviatrix_edge_equinix.default.gw_name, aviatrix_edge_equinix.default.site_id)
+
+  depends_on = [aviatrix_edge_equinix.default]
 }
 
 data "template_file" "init" {
@@ -122,7 +120,7 @@ resource "megaport_mve" "default" {
     ignore_changes = [vendor_config]
   }
 
-  depends_on = [aviatrix_edge_gateway_selfmanaged.default]
+  depends_on = [aviatrix_edge_equinix.default]
 }
 
 data "aviatrix_caller_identity" "self" {}
@@ -143,7 +141,7 @@ resource "terracurl_request" "update_edge_gateway" {
   request_body = jsonencode({
     action         = "update_edge_gateway"
     CID            = data.aviatrix_caller_identity.self.cid
-    name           = aviatrix_edge_gateway_selfmanaged.default.gw_name
+    name           = aviatrix_edge_equinix.default.gw_name
     mgmt_egress_ip = local.management_prefix
   })
 

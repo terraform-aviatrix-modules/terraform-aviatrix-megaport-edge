@@ -52,6 +52,11 @@ variable "wan1_gateway_ip" {
   type        = string
 }
 
+variable "wan1_public_ip" {
+  description = "WAN 1 public IP."
+  type        = string
+}
+
 variable "wan2_ip" {
   description = "WAN 2 Interface static IP address. Example: \"192.168.2.1/24\"."
   type        = string
