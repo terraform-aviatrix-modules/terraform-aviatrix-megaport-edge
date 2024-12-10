@@ -55,30 +55,91 @@ variable "wan1_gateway_ip" {
 variable "wan1_public_ip" {
   description = "WAN 1 public IP."
   type        = string
+  default     = null
 }
 
 variable "wan2_ip" {
   description = "WAN 2 Interface static IP address. Example: \"192.168.2.1/24\"."
   type        = string
   default     = ""
+  nullable    = false
 }
 
 variable "wan2_gateway_ip" {
   description = "WAN 2 Interface gateway IP. Example: \"192.168.2.254\"."
   type        = string
-  default     = null
+  default     = ""
+  nullable    = false
 }
 
 variable "wan3_ip" {
   description = "WAN 3 Interface static IP address. Example: \"192.168.2.1/24\"."
   type        = string
   default     = ""
+  nullable    = false
 }
 
 variable "wan3_gateway_ip" {
   description = "WAN 3 Interface gateway IP. Example: \"192.168.2.254\"."
   type        = string
-  default     = null
+  default     = ""
+  nullable    = false
+}
+
+variable "ha_lan_ip" {
+  description = "LAN Interface static IP address. Example: \"192.168.1.1/24\"."
+  type        = string
+  default     = ""
+  nullable    = false
+}
+
+variable "ha_wan1_ip" {
+  description = "WAN 1 Interface static IP address. Example: \"192.168.2.1/24\"."
+  type        = string
+  default     = ""
+  nullable    = false
+}
+
+variable "ha_wan1_gateway_ip" {
+  description = "WAN 1 Interface gateway IP. Example: \"192.168.2.254\"."
+  type        = string
+  default     = ""
+  nullable    = false
+}
+
+variable "ha_wan1_public_ip" {
+  description = "WAN 1 public IP."
+  type        = string
+  default     = ""
+  nullable    = false
+}
+
+variable "ha_wan2_ip" {
+  description = "WAN 2 Interface static IP address. Example: \"192.168.2.1/24\"."
+  type        = string
+  default     = ""
+  nullable    = false
+}
+
+variable "ha_wan2_gateway_ip" {
+  description = "WAN 2 Interface gateway IP. Example: \"192.168.2.254\"."
+  type        = string
+  default     = ""
+  nullable    = false
+}
+
+variable "ha_wan3_ip" {
+  description = "WAN 3 Interface static IP address. Example: \"192.168.2.1/24\"."
+  type        = string
+  default     = ""
+  nullable    = false
+}
+
+variable "ha_wan3_gateway_ip" {
+  description = "WAN 3 Interface gateway IP. Example: \"192.168.2.254\"."
+  type        = string
+  default     = ""
+  nullable    = false
 }
 
 variable "megaport_location" {
@@ -101,4 +162,13 @@ variable "interface_count" {
 variable "megaport_location_mgmt_internet" {
   description = "Overwrite the location for the management internet breakout."
   default     = ""
+  type        = string
+  nullable    = false
+}
+
+variable "ha_gw" {
+  description = "Enables creation of a second Megaport gateway."
+  default     = false
+  type        = bool
+  nullable    = false
 }
