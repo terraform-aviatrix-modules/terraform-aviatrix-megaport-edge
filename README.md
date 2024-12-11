@@ -32,6 +32,15 @@ module "edge" {
 | <a name="input_account"></a> [account](#input\_account) | Megaport account on the Aviatrix controller. | `string` | n/a | yes |
 | <a name="input_approved_learned_cidrs"></a> [approved\_learned\_cidrs](#input\_approved\_learned\_cidrs) | Set of approved learned CIDRs. Valid only when enable\_learned\_cidrs\_approval is set to true. Example: ["10.1.0.0/16", "10.2.0.0/16"]. | `list(string)` | `null` | no |
 | <a name="input_enable_learned_cidrs_approval"></a> [enable\_learned\_cidrs\_approval](#input\_enable\_learned\_cidrs\_approval) | Switch to enable learned CIDR approval. | `bool` | `null` | no |
+| <a name="input_ha_gw"></a> [ha\_gw](#input\_ha\_gw) | Enables creation of a second Megaport gateway. | `bool` | `false` | no |
+| <a name="input_ha_lan_ip"></a> [ha\_lan\_ip](#input\_ha\_lan\_ip) | LAN Interface static IP address. Example: "192.168.1.1/24". | `string` | `""` | no |
+| <a name="input_ha_wan1_gateway_ip"></a> [ha\_wan1\_gateway\_ip](#input\_ha\_wan1\_gateway\_ip) | WAN 1 Interface gateway IP. Example: "192.168.2.254". | `string` | `""` | no |
+| <a name="input_ha_wan1_ip"></a> [ha\_wan1\_ip](#input\_ha\_wan1\_ip) | WAN 1 Interface static IP address. Example: "192.168.2.1/24". | `string` | `""` | no |
+| <a name="input_ha_wan1_public_ip"></a> [ha\_wan1\_public\_ip](#input\_ha\_wan1\_public\_ip) | WAN 1 public IP. | `string` | `""` | no |
+| <a name="input_ha_wan2_gateway_ip"></a> [ha\_wan2\_gateway\_ip](#input\_ha\_wan2\_gateway\_ip) | WAN 2 Interface gateway IP. Example: "192.168.2.254". | `string` | `""` | no |
+| <a name="input_ha_wan2_ip"></a> [ha\_wan2\_ip](#input\_ha\_wan2\_ip) | WAN 2 Interface static IP address. Example: "192.168.2.1/24". | `string` | `""` | no |
+| <a name="input_ha_wan3_gateway_ip"></a> [ha\_wan3\_gateway\_ip](#input\_ha\_wan3\_gateway\_ip) | WAN 3 Interface gateway IP. Example: "192.168.2.254". | `string` | `""` | no |
+| <a name="input_ha_wan3_ip"></a> [ha\_wan3\_ip](#input\_ha\_wan3\_ip) | WAN 3 Interface static IP address. Example: "192.168.2.1/24". | `string` | `""` | no |
 | <a name="input_interface_count"></a> [interface\_count](#input\_interface\_count) | The amount of interfaces to provision the Edge gateway with. | `number` | `3` | no |
 | <a name="input_lan_ip"></a> [lan\_ip](#input\_lan\_ip) | LAN Interface static IP address. Example: "192.168.1.1/24". | `string` | n/a | yes |
 | <a name="input_local_as_number"></a> [local\_as\_number](#input\_local\_as\_number) | BGP AS Number to assign to Edge VM. | `number` | `null` | no |
@@ -42,14 +51,16 @@ module "edge" {
 | <a name="input_site_id"></a> [site\_id](#input\_site\_id) | Site ID for the gateway(s). | `string` | n/a | yes |
 | <a name="input_wan1_gateway_ip"></a> [wan1\_gateway\_ip](#input\_wan1\_gateway\_ip) | WAN 1 Interface gateway IP. Example: "192.168.2.254". | `string` | n/a | yes |
 | <a name="input_wan1_ip"></a> [wan1\_ip](#input\_wan1\_ip) | WAN 1 Interface static IP address. Example: "192.168.2.1/24". | `string` | n/a | yes |
-| <a name="input_wan2_gateway_ip"></a> [wan2\_gateway\_ip](#input\_wan2\_gateway\_ip) | WAN 2 Interface gateway IP. Example: "192.168.2.254". | `string` | `null` | no |
+| <a name="input_wan1_public_ip"></a> [wan1\_public\_ip](#input\_wan1\_public\_ip) | WAN 1 public IP. | `string` | `null` | no |
+| <a name="input_wan2_gateway_ip"></a> [wan2\_gateway\_ip](#input\_wan2\_gateway\_ip) | WAN 2 Interface gateway IP. Example: "192.168.2.254". | `string` | `""` | no |
 | <a name="input_wan2_ip"></a> [wan2\_ip](#input\_wan2\_ip) | WAN 2 Interface static IP address. Example: "192.168.2.1/24". | `string` | `""` | no |
-| <a name="input_wan3_gateway_ip"></a> [wan3\_gateway\_ip](#input\_wan3\_gateway\_ip) | WAN 3 Interface gateway IP. Example: "192.168.2.254". | `string` | `null` | no |
+| <a name="input_wan3_gateway_ip"></a> [wan3\_gateway\_ip](#input\_wan3\_gateway\_ip) | WAN 3 Interface gateway IP. Example: "192.168.2.254". | `string` | `""` | no |
 | <a name="input_wan3_ip"></a> [wan3\_ip](#input\_wan3\_ip) | WAN 3 Interface static IP address. Example: "192.168.2.1/24". | `string` | `""` | no |
 
 ## Outputs
 
 | Name | Description |
 |------|-------------|
+| <a name="output_ha_management_ip"></a> [ha\_management\_ip](#output\_ha\_management\_ip) | n/a |
 | <a name="output_management_ip"></a> [management\_ip](#output\_management\_ip) | n/a |
 <!-- END_TF_DOCS -->
