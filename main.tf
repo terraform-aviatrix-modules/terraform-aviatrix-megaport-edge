@@ -106,14 +106,6 @@ data "megaport_partner" "internet" {
   location_id  = data.megaport_location.internet_loc.id
 }
 
-data "megaport_partner" "hagw_internet" {
-  count        = var.ha_gw ? 1 : 0
-  connect_type = "TRANSIT"
-  company_name = "Networks"
-  product_name = "Megaport Internet"
-  location_id  = data.megaport_location.internet_loc.id
-}
-
 resource "megaport_vxc" "mgmt_internet" {
   product_name         = "Transit VXC Example"
   rate_limit           = 100
@@ -145,7 +137,7 @@ resource "megaport_vxc" "hagw_mgmt_internet" {
   }
 
   b_end = {
-    requested_product_uid = data.megaport_partner.hagw_internet[0].product_uid
+    requested_product_uid = data.megaport_partner.internet.product_uid
   }
 
   b_end_partner_config = {
