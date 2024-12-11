@@ -2,7 +2,7 @@ This deploys a single Aviatrix Edge as Spoke gateway in Megaport.
 
 ```hcl
 module "edge" {
-  source  = "terraform-aviatrix-modules/megaport-edge/aviatrix"
+  source  = "terraform-aviatrix-modules/megaport-edge-spoke/aviatrix"
   version = "v1.1.0"
 
   name              = "megaport1"
