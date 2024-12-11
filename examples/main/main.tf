@@ -1,6 +1,6 @@
 module "edge" {
   source  = "terraform-aviatrix-modules/megaport-edge/aviatrix"
-  version = "v1.1.0"
+  version = "v1.0.0"
 
   name              = "megaport1"
   account           = "megaport_account"

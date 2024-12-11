@@ -182,7 +182,7 @@ variable "contract_term_months" {
 
 variable "image_id" {
   description = "The image ID of the MVE. Indicates the software version."
-  default     = 85
+  default     = 70
   type        = number
   nullable    = false
 }
