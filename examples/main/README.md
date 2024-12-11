@@ -1,3 +1,6 @@
+This deploys a single Aviatrix Edge as Spoke gateway in Megaport.
+
+```hcl
 module "edge" {
   source  = "terraform-aviatrix-modules/megaport-edge/aviatrix"
   version = "v1.1.0"
@@ -11,3 +14,4 @@ module "edge" {
   wan1_gateway_ip   = "10.10.11.254"
   megaport_location = "Digital Realty Chicago ORD11 (CHI2)"
 }
+```

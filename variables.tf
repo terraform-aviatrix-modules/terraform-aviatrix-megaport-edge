@@ -155,7 +155,7 @@ variable "interface_count" {
 
   validation {
     condition     = var.interface_count >= 3 && var.interface_count <= 5
-    error_message = "The value of interface_count must be at least 3 and at most 5."
+    error_message = "The value of interface_count must be at least 3 (default) and at most 5."
   }
 }
 
@@ -171,4 +171,43 @@ variable "ha_gw" {
   default     = false
   type        = bool
   nullable    = false
+}
+
+variable "contract_term_months" {
+  description = " (Number) The term of the contract in months: valid values are 1, 12, 24, and 36."
+  default     = 12
+  type        = number
+  nullable    = false
+}
+
+variable "image_id" {
+  description = "The image ID of the MVE. Indicates the software version."
+  default     = 85
+  type        = number
+  nullable    = false
+}
+
+variable "product_size" {
+  description = "The product size for the vendor config. The size defines the MVE specifications including number of cores, bandwidth, and number of connections."
+  default     = "SMALL"
+  type        = string
+  nullable    = false
+}
+
+variable "cost_centre" {
+  description = "The cost centre of the MVE."
+  default     = null
+  type        = string
+}
+
+variable "diversity_zone" {
+  description = "The diversity zone of the MVE."
+  default     = null
+  type        = string
+}
+
+variable "hagw_diversity_zone" {
+  description = "The diversity zone of the MVE."
+  default     = null
+  type        = string
 }

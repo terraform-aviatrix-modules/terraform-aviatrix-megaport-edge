@@ -17,10 +17,20 @@ locals {
     } : wan => wan_config if wan_config.ip != ""
   }
 
-  ha_additional_wan_interfaces = {
+  hagw_additional_wan_interfaces = {
     for wan, wan_config in {
       eth3 = { ip = var.ha_wan2_ip, gateway = var.ha_wan2_gateway_ip }
       eth4 = { ip = var.ha_wan3_ip, gateway = var.ha_wan3_gateway_ip }
     } : wan => wan_config if wan_config.ip != ""
   }
+
+  vnics = concat(
+    [
+      { description = "WAN" },
+      { description = "LAN" },
+      { description = "Management" }
+    ],
+    var.interface_count >= 4 ? [{ description = "WAN2" }] : [],
+    var.interface_count == 5 ? [{ description = "WAN3" }] : []
+  )
 }

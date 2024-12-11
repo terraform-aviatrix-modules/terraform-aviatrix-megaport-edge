@@ -30,7 +30,6 @@ resource "aviatrix_edge_equinix" "default" {
     }
   }
 
-
   lifecycle {
     ignore_changes = [
       management_egress_ip_prefix_list,
@@ -59,7 +58,7 @@ resource "aviatrix_edge_equinix_ha" "default" {
   }
 
   dynamic "interfaces" {
-    for_each = local.ha_additional_wan_interfaces
+    for_each = local.hagw_additional_wan_interfaces
 
     content {
       name       = interfaces.key
@@ -68,7 +67,6 @@ resource "aviatrix_edge_equinix_ha" "default" {
       gateway_ip = interfaces.value.gateway
     }
   }
-
 
   lifecycle {
     ignore_changes = [
@@ -107,9 +105,9 @@ data "megaport_partner" "internet" {
 }
 
 resource "megaport_vxc" "mgmt_internet" {
-  product_name         = "Transit VXC Example"
+  product_name         = "Management Internet VXC"
   rate_limit           = 100
-  contract_term_months = 1
+  contract_term_months = var.contract_term_months
 
   a_end = {
     requested_product_uid = megaport_mve.default.product_uid
@@ -127,9 +125,9 @@ resource "megaport_vxc" "mgmt_internet" {
 
 resource "megaport_vxc" "hagw_mgmt_internet" {
   count                = var.ha_gw ? 1 : 0
-  product_name         = "Transit VXC Example"
+  product_name         = "HAGW Management Internet VXC"
   rate_limit           = 100
-  contract_term_months = 1
+  contract_term_months = var.contract_term_months
 
   a_end = {
     requested_product_uid = megaport_mve.ha_gw[0].product_uid
@@ -148,24 +146,16 @@ resource "megaport_vxc" "hagw_mgmt_internet" {
 resource "megaport_mve" "default" {
   product_name         = "Secure Edge"
   location_id          = data.megaport_location.loc.id
-  contract_term_months = 1
+  contract_term_months = var.contract_term_months
+  cost_centre          = var.cost_centre
+  diversity_zone       = var.diversity_zone
 
-  vnics = [
-    {
-      description = "WAN"
-    },
-    {
-      description = "LAN"
-    },
-    {
-      description = "Management"
-    }
-  ]
+  vnics = local.vnics
 
   vendor_config = {
     vendor       = "aviatrix"
-    product_size = "SMALL"
-    image_id     = 85
+    product_size = var.product_size
+    image_id     = var.image_id
     cloud_init   = data.local_file.cloud_init_content.content_base64
   }
 
@@ -180,24 +170,16 @@ resource "megaport_mve" "ha_gw" {
   count                = var.ha_gw ? 1 : 0
   product_name         = "Secure Edge"
   location_id          = data.megaport_location.loc.id
-  contract_term_months = 1
+  contract_term_months = var.contract_term_months
+  cost_centre          = var.cost_centre
+  diversity_zone       = var.hagw_diversity_zone
 
-  vnics = [
-    {
-      description = "WAN"
-    },
-    {
-      description = "LAN"
-    },
-    {
-      description = "Management"
-    }
-  ]
+  vnics = local.vnics
 
   vendor_config = {
     vendor       = "aviatrix"
-    product_size = "SMALL"
-    image_id     = 85
+    product_size = var.product_size
+    image_id     = var.image_id
     cloud_init   = data.local_file.hagw_cloud_init_content[0].content_base64
   }
 
@@ -205,7 +187,7 @@ resource "megaport_mve" "ha_gw" {
     ignore_changes = [vendor_config]
   }
 
-  depends_on = [aviatrix_edge_equinix.default]
+  depends_on = [aviatrix_edge_equinix_ha.default]
 }
 
 data "aviatrix_caller_identity" "self" {}

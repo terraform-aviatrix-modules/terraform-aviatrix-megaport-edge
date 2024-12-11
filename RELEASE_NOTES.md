@@ -1,9 +1,9 @@
 Please update this file with information about changes between version and upgrade information.
 
-# module name - release notes
+# terraform-aviatrix-megaport-edge - release notes
 
-## Release Version
-Describe release
+## v1.1.0
+Controller 7.2 support
 
-### Feature
-Describe new featue
+## v1.0.0
+Initial Release
