@@ -7,13 +7,13 @@ This module deploys the Aviatrix Edge Gateway in a Megaport location. It can tak
 ### Compatibility
 Module | Terraform | Controller | Aviatrix Terraform provider | Megaport  Terraform provider
 :--- | :--- | :--- | :--- | :---
-v1.0.0 | >=1.3 | 7.1 | ~> 3.1.0 | >= 1.2.1
+v1.0.1 | >=1.3 | 7.1 | ~> 3.1.0 | >= 1.2.1
 
 ### Usage Example
 ```hcl
 module "edge" {
   source  = "terraform-aviatrix-modules/megaport-edge-spoke/aviatrix"
-  version = "v1.0.0"
+  version = "v1.0.1"
 
   name              = "megaport1"
   account           = "megaport_account"
@@ -45,7 +45,7 @@ module "edge" {
 | <a name="input_ha_wan3_gateway_ip"></a> [ha\_wan3\_gateway\_ip](#input\_ha\_wan3\_gateway\_ip) | WAN 3 Interface gateway IP. Example: "192.168.2.254". | `string` | `""` | no |
 | <a name="input_ha_wan3_ip"></a> [ha\_wan3\_ip](#input\_ha\_wan3\_ip) | WAN 3 Interface static IP address. Example: "192.168.2.1/24". | `string` | `""` | no |
 | <a name="input_hagw_diversity_zone"></a> [hagw\_diversity\_zone](#input\_hagw\_diversity\_zone) | The diversity zone of the MVE. | `string` | `null` | no |
-| <a name="input_image_id"></a> [image\_id](#input\_image\_id) | The image ID of the MVE. Indicates the software version. | `number` | `85` | no |
+| <a name="input_image_id"></a> [image\_id](#input\_image\_id) | The image ID of the MVE. Indicates the software version. | `number` | `70` | no |
 | <a name="input_interface_count"></a> [interface\_count](#input\_interface\_count) | The amount of interfaces to provision the Edge gateway with. | `number` | `3` | no |
 | <a name="input_lan_ip"></a> [lan\_ip](#input\_lan\_ip) | LAN Interface static IP address. Example: "192.168.1.1/24". | `string` | n/a | yes |
 | <a name="input_local_as_number"></a> [local\_as\_number](#input\_local\_as\_number) | BGP AS Number to assign to Edge VM. | `number` | `null` | no |
@@ -68,5 +68,7 @@ module "edge" {
 | Name | Description |
 |------|-------------|
 | <a name="output_ha_management_ip"></a> [ha\_management\_ip](#output\_ha\_management\_ip) | n/a |
+| <a name="output_ha_mve"></a> [ha\_mve](#output\_ha\_mve) | n/a |
 | <a name="output_management_ip"></a> [management\_ip](#output\_management\_ip) | n/a |
+| <a name="output_mve"></a> [mve](#output\_mve) | n/a |
 <!-- END_TF_DOCS -->
