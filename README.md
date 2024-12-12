@@ -68,5 +68,7 @@ module "edge" {
 | Name | Description |
 |------|-------------|
 | <a name="output_ha_management_ip"></a> [ha\_management\_ip](#output\_ha\_management\_ip) | n/a |
+| <a name="output_ha_mve"></a> [ha\_mve](#output\_ha\_mve) | n/a |
 | <a name="output_management_ip"></a> [management\_ip](#output\_management\_ip) | n/a |
+| <a name="output_mve"></a> [mve](#output\_mve) | n/a |
 <!-- END_TF_DOCS -->
