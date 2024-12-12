@@ -1,5 +1,5 @@
 <!-- BEGIN_TF_DOCS -->
-# terraform-aviatrix-megaport-edge
+# terraform-aviatrix-megaport-edge-spoke
 
 ### Description
 This module deploys the Aviatrix Edge Gateway in a Megaport location. It can take between 15 and 60 minutes after the deployment has completed, before you will see the gateway be in the "Up" state in the controller.
