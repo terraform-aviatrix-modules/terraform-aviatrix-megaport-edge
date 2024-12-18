@@ -67,6 +67,8 @@ module "edge" {
 
 | Name | Description |
 |------|-------------|
+| <a name="output_aviatrix_edge_equinix"></a> [aviatrix\_edge\_equinix](#output\_aviatrix\_edge\_equinix) | n/a |
+| <a name="output_aviatrix_edge_equinix_ha"></a> [aviatrix\_edge\_equinix\_ha](#output\_aviatrix\_edge\_equinix\_ha) | n/a |
 | <a name="output_ha_management_ip"></a> [ha\_management\_ip](#output\_ha\_management\_ip) | n/a |
 | <a name="output_ha_mve"></a> [ha\_mve](#output\_ha\_mve) | n/a |
 | <a name="output_management_ip"></a> [management\_ip](#output\_management\_ip) | n/a |
